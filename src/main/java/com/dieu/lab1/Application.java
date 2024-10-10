@@ -24,8 +24,8 @@ public class Application extends javafx.application.Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("create.fxml"));
-//        FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("login.fxml"));
+//        FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("create.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("login.fxml"));
 //        Scene scene = new Scene(fxmlLoader.load());
 
         BorderPane root = fxmlLoader.load();
@@ -47,12 +47,6 @@ public class Application extends javafx.application.Application {
     }
 
     public static void main(String[] args) {
-//        String persitenceFileName = "hibernate.cfg.xml";
-//        IAccountService accountService = new AccountService();
-//        Account account = new Account();
-//        account.setEmail("test2@email.com");
-//        account.setPassword("123");
-//        accountService.addAccount(account);
         launch();
     }
 }

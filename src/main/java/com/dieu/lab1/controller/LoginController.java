@@ -1,5 +1,6 @@
 package com.dieu.lab1.controller;
 
+import com.dieu.lab1.dto.AccountDto;
 import com.dieu.lab1.entity.Account;
 import com.dieu.lab1.service.IAccountService;
 import com.dieu.lab1.service.impl.AccountService;
@@ -36,43 +37,50 @@ public class LoginController {
     private Label labelError;
 
     public void verifyAccount(ActionEvent actionEvent) throws IOException {
-        //inputed information is valid
-        if (validateInput(actionEvent)) {
-            Account account = accountService.findByEmail(txtFieldEmail.getText());
-            if (account != null && account.getPassword().equals(txtFieldPassword.getText())) {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/dieu/lab1/search.fxml"));
-                BorderPane root = loader.load();
+        AccountDto account = validateInputAccount(actionEvent);
+        //account is right
+        if (account != null && accountService.verifyAccount(account)) {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/dieu/lab1/search.fxml"));
+            BorderPane root = loader.load();
 
-                FXMLLoader headerLoader = new FXMLLoader(getClass().getResource("/com/dieu/lab1/components/header.fxml"));
-                Parent header = headerLoader.load();
+            FXMLLoader headerLoader = new FXMLLoader(getClass().getResource("/com/dieu/lab1/components/header.fxml"));
+            Parent header = headerLoader.load();
 
-                FXMLLoader footerLoader = new FXMLLoader(getClass().getResource("/com/dieu/lab1/components/footer.fxml"));
-                Parent footer = footerLoader.load();
+            FXMLLoader footerLoader = new FXMLLoader(getClass().getResource("/com/dieu/lab1/components/footer.fxml"));
+            Parent footer = footerLoader.load();
 
-                root.setTop(header);
-                root.setBottom(footer);
+            root.setTop(header);
+            root.setBottom(footer);
 
-                HeaderController headerController = headerLoader.getController();
-                headerController.displayUser(account.getEmail());
-                headerController.displayToday();
+            HeaderController headerController = headerLoader.getController();
+            headerController.displayUser(account.getEmail());
+            headerController.displayToday();
 
-                Stage stage = (Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
-                Scene scene = new Scene(root);
-                stage.setScene(scene);
-                stage.show();
-            }
+            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
         }
 
     }
 
-    public boolean validateInput(ActionEvent actionEvent) {
+    public AccountDto validateInputAccount(ActionEvent actionEvent) {
         String email = txtFieldEmail.getText();
         String password = txtFieldPassword.getText();
 
         if (email.isEmpty() || password.isEmpty()) {
-            labelError.setText("Please enter a valid email address and password");
-            return false;
+            labelError.setText("Please enter email address and password");
+            return null;
         }
-        return true;
+
+        if (!email.matches("^[a-zA-Z0-9.]+@[a-zA-Z0-9.]+\\.([a-zA-Z]{2,}$)+")) {
+            labelError.setText("Please enter a valid email address");
+            return null;
+        }
+
+        AccountDto account = new AccountDto();
+        account.setEmail(email);
+        account.setPassword(password);
+        return account;
     }
 }

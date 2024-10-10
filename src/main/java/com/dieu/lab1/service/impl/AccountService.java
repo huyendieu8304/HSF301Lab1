@@ -1,5 +1,6 @@
 package com.dieu.lab1.service.impl;
 
+import com.dieu.lab1.dto.AccountDto;
 import com.dieu.lab1.entity.Account;
 import com.dieu.lab1.repository.IAccountRepository;
 import com.dieu.lab1.repository.impl.AccountRepository;
@@ -20,7 +21,18 @@ public class AccountService extends BaseService implements IAccountService {
     }
 
     @Override
-    public Account findByEmail(String email) {
-        return accountRepository.findByEmail(email);
+    public AccountDto findByEmail(String email) {
+        Account account = accountRepository.findByEmail(email);
+        AccountDto accountDto = new AccountDto();
+        accountDto.setId(account.getId());
+        accountDto.setEmail(account.getEmail());
+        return accountDto;
+    }
+
+    @Override
+    public boolean verifyAccount(AccountDto account) {
+        Account seachedAccount = accountRepository.findByEmail(account.getEmail());
+        return seachedAccount != null
+                && seachedAccount.getPassword().equals(account.getPassword());
     }
 }
