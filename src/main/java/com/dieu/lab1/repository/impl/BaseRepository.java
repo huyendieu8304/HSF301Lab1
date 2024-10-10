@@ -1,10 +1,11 @@
 package com.dieu.lab1.repository.impl;
 
+import com.dieu.lab1.repository.ICrudRepository;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
-public class BaseRepository<T, K> {
+public abstract class BaseRepository<T, K> implements ICrudRepository<T, K> {
     protected SessionFactory sessionFactory;
     private final Class<T> entityClass;
 
@@ -13,6 +14,7 @@ public class BaseRepository<T, K> {
         this.entityClass = entityClass;
     }
 
+    @Override
     public boolean save (T entity){
         Session session = sessionFactory.openSession();
         Transaction tx = session.beginTransaction();
@@ -29,6 +31,7 @@ public class BaseRepository<T, K> {
         return false;
     }
 
+    @Override
     public T findById(K id){
         Session session = sessionFactory.openSession();
         Transaction tx = session.beginTransaction();
@@ -43,6 +46,7 @@ public class BaseRepository<T, K> {
         return null;
     }
 
+    @Override
     public void update(T entity){
         Session session = sessionFactory.openSession();
         Transaction tx = session.beginTransaction();
@@ -55,6 +59,7 @@ public class BaseRepository<T, K> {
         }
     }
 
+    @Override
     public void delete(T entity){
         Session session = sessionFactory.openSession();
         Transaction tx = session.beginTransaction();
