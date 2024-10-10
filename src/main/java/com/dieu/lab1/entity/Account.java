@@ -6,7 +6,7 @@ import javax.persistence.*;
 public class Account {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
     @Column (nullable = false, unique = true)
     private String email;
     @Column (nullable = false)

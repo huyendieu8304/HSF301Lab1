@@ -21,7 +21,6 @@ public class AccountService extends BaseService implements IAccountService {
 
     @Override
     public Account findByEmail(String email) {
-        System.out.println("account serrvice is called");
         return accountRepository.findByEmail(email);
     }
 }

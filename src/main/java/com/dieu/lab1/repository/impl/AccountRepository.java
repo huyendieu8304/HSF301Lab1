@@ -11,8 +11,10 @@ import javax.persistence.TypedQuery;
 
 public class AccountRepository extends BaseRepository implements IAccountRepository {
 
+
+
     public AccountRepository(SessionFactory sessionFactory) {
-        super(sessionFactory);
+        super(sessionFactory, Account.class);
     }
 
     public void save(Account account) {
@@ -27,7 +29,6 @@ public class AccountRepository extends BaseRepository implements IAccountReposit
             e.printStackTrace();
         } finally {
             session.close();
-            sessionFactory.close();
         }
     }
 
