@@ -30,6 +30,7 @@
 
         <!-- Mapping files (or classes) -->
         <mapping class="com.dieu.lab1.entity.Account" />
+        <mapping class="com.dieu.lab1.entity.Agent" />
 <!--        <mapping class="com.dieu.lab1.entity.Account"/>-->
 <!--        <mapping class="com.hsf301.hibernate.entity.Student"/>-->
 <!--        <mapping class="com.hsf301.hibernate.entity.Book"/>-->
