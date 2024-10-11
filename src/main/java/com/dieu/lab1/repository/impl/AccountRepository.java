@@ -28,8 +28,8 @@ public class AccountRepository extends BaseRepository<Account, Integer> implemen
         } catch (Exception e) {
             tx.rollback();
             e.printStackTrace();
-            throw e;
         }
+        return null;
     }
 
 }

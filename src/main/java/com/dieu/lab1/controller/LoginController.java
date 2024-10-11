@@ -20,6 +20,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class LoginController {
 
@@ -41,28 +42,32 @@ public class LoginController {
     public void verifyAccount(ActionEvent actionEvent) throws IOException {
         AccountDto account = validateInputAccount(actionEvent);
         //account is right
-        if (account != null && accountService.verifyAccount(account)) {
-            ApplicationSession.addAttribute("account", account);
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/dieu/lab1/search.fxml"));
-            BorderPane root = loader.load();
+        if (account != null){
+            if(accountService.verifyAccount(account)) {
+                ApplicationSession.addAttribute("account", account);
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/dieu/lab1/search.fxml"));
+                BorderPane root = loader.load();
 
-            FXMLLoader headerLoader = new FXMLLoader(getClass().getResource("/com/dieu/lab1/components/header.fxml"));
-            Parent header = headerLoader.load();
+                FXMLLoader headerLoader = new FXMLLoader(getClass().getResource("/com/dieu/lab1/components/header.fxml"));
+                Parent header = headerLoader.load();
 
-            FXMLLoader footerLoader = new FXMLLoader(getClass().getResource("/com/dieu/lab1/components/footer.fxml"));
-            Parent footer = footerLoader.load();
+                FXMLLoader footerLoader = new FXMLLoader(getClass().getResource("/com/dieu/lab1/components/footer.fxml"));
+                Parent footer = footerLoader.load();
 
-            root.setTop(header);
-            root.setBottom(footer);
+                root.setTop(header);
+                root.setBottom(footer);
 
-            HeaderController headerController = headerLoader.getController();
-            headerController.displayUser();
-            headerController.displayToday();
+                HeaderController headerController = headerLoader.getController();
+                headerController.displayUser();
+                headerController.displayToday();
 
-            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
+                Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+                Scene scene = new Scene(root);
+                stage.setScene(scene);
+                stage.show();
+            } else {
+                labelError.setText("Email hoặc mật khẩu không đúng");
+            }
         }
 
     }

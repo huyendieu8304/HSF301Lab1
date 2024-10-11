@@ -45,10 +45,10 @@ public class UpdateController {
         this.agentService = new AgentService();
     }
 
+    private static int agentId;
 
-    public void displayAgent(int id){
-        System.out.println("displayAgent: " + id);
-        AgentDto agentDto = agentService.getAgent(id);
+    public void displayAgent(AgentDto agentDto) {
+        agentId = agentDto.getId();
         txtFieldName.setText(agentDto.getName());
         txtFieldEmail.setText(agentDto.getEmail());
         txtFieldAddress.setText(agentDto.getAddress());
@@ -137,7 +137,7 @@ public class UpdateController {
         agent.setAddress(txtFieldAddress.getText());
         agent.setStatus(EAgentStatus.valueOf(choiceBoxStatus.getSelectionModel().getSelectedItem().toString()));
         agent.setRegisterDate(datePickerRegisterDate.getValue());
-
+        agent.setId(agentId);
         return agent;
     }
 
@@ -145,18 +145,18 @@ public class UpdateController {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/dieu/lab1/search.fxml"));
         BorderPane root = loader.load();
 
-//        FXMLLoader headerLoader = new FXMLLoader(getClass().getResource("/com/dieu/lab1/components/header.fxml"));
-//        Parent header = headerLoader.load();
-//
-//        FXMLLoader footerLoader = new FXMLLoader(getClass().getResource("/com/dieu/lab1/components/footer.fxml"));
-//        Parent footer = footerLoader.load();
-//
-//        root.setTop(header);
-//        root.setBottom(footer);
-//
-//        HeaderController headerController = headerLoader.getController();
-//        headerController.displayUser();
-//        headerController.displayToday();
+        FXMLLoader headerLoader = new FXMLLoader(getClass().getResource("/com/dieu/lab1/components/header.fxml"));
+        Parent header = headerLoader.load();
+
+        FXMLLoader footerLoader = new FXMLLoader(getClass().getResource("/com/dieu/lab1/components/footer.fxml"));
+        Parent footer = footerLoader.load();
+
+        root.setTop(header);
+        root.setBottom(footer);
+
+        HeaderController headerController = headerLoader.getController();
+        headerController.displayUser();
+        headerController.displayToday();
 
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);

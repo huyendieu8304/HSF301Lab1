@@ -9,6 +9,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
@@ -126,18 +127,18 @@ public class CreateController {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/dieu/lab1/search.fxml"));
         BorderPane root = loader.load();
 
-//        FXMLLoader headerLoader = new FXMLLoader(getClass().getResource("/com/dieu/lab1/components/header.fxml"));
-//        Parent header = headerLoader.load();
-//
-//        FXMLLoader footerLoader = new FXMLLoader(getClass().getResource("/com/dieu/lab1/components/footer.fxml"));
-//        Parent footer = footerLoader.load();
-//
-//        root.setTop(header);
-//        root.setBottom(footer);
-//
-//        HeaderController headerController = headerLoader.getController();
-//        headerController.displayUser();
-//        headerController.displayToday();
+        FXMLLoader headerLoader = new FXMLLoader(getClass().getResource("/com/dieu/lab1/components/header.fxml"));
+        Parent header = headerLoader.load();
+
+        FXMLLoader footerLoader = new FXMLLoader(getClass().getResource("/com/dieu/lab1/components/footer.fxml"));
+        Parent footer = footerLoader.load();
+
+        root.setTop(header);
+        root.setBottom(footer);
+
+        HeaderController headerController = headerLoader.getController();
+        headerController.displayUser();
+        headerController.displayToday();
 
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);

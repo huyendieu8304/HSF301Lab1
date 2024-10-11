@@ -113,25 +113,25 @@ public class SearchController {
                     AgentDto agent = getTableView().getItems().get(getIndex());
                     try {
                         // Load the new scene
-                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/dieu/lab1/view-detail.fxml"));
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/dieu/lab1/update.fxml"));
                         BorderPane root = loader.load();
 
-//                        FXMLLoader headerLoader = new FXMLLoader(getClass().getResource("/com/dieu/lab1/components/header.fxml"));
-//                        Parent header = headerLoader.load();
-//
-//                        FXMLLoader footerLoader = new FXMLLoader(getClass().getResource("/com/dieu/lab1/components/footer.fxml"));
-//                        Parent footer = footerLoader.load();
-//
-//                        root.setTop(header);
-//                        root.setBottom(footer);
-//
-//                        HeaderController headerController = headerLoader.getController();
-//                        headerController.displayUser();
-//                        headerController.displayToday();
+                        FXMLLoader headerLoader = new FXMLLoader(getClass().getResource("/com/dieu/lab1/components/header.fxml"));
+                        Parent header = headerLoader.load();
+
+                        FXMLLoader footerLoader = new FXMLLoader(getClass().getResource("/com/dieu/lab1/components/footer.fxml"));
+                        Parent footer = footerLoader.load();
+
+                        root.setTop(header);
+                        root.setBottom(footer);
+
+                        HeaderController headerController = headerLoader.getController();
+                        headerController.displayUser();
+                        headerController.displayToday();
 
                         // Pass data
-                        ViewDetailController viewDetailController = loader.getController();
-                        viewDetailController.displayAgent(agent);
+                        UpdateController updateController = loader.getController();
+                        updateController.displayAgent(agent);
 
                         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                         Scene scene = new Scene(root);
@@ -196,7 +196,7 @@ public class SearchController {
         }
 
         //update labelDisplay in the end
-//        labelDisplay.setText("Hiển thị từ " + (currentPage - 1) * pageSize + " đến " + no );
+        labelDisplay.setText("Hiển thị trang " + currentPage + " trên " + noOfPages + " trang." );
 
 
     }
@@ -255,18 +255,18 @@ public class SearchController {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/dieu/lab1/create.fxml"));
         BorderPane root = loader.load();
 
-//        FXMLLoader headerLoader = new FXMLLoader(getClass().getResource("/com/dieu/lab1/components/header.fxml"));
-//        Parent header = headerLoader.load();
-//
-//        FXMLLoader footerLoader = new FXMLLoader(getClass().getResource("/com/dieu/lab1/components/footer.fxml"));
-//        Parent footer = footerLoader.load();
-//
-//        root.setTop(header);
-//        root.setBottom(footer);
-//
-//        HeaderController headerController = headerLoader.getController();
-//        headerController.displayUser();
-//        headerController.displayToday();
+        FXMLLoader headerLoader = new FXMLLoader(getClass().getResource("/com/dieu/lab1/components/header.fxml"));
+        Parent header = headerLoader.load();
+
+        FXMLLoader footerLoader = new FXMLLoader(getClass().getResource("/com/dieu/lab1/components/footer.fxml"));
+        Parent footer = footerLoader.load();
+
+        root.setTop(header);
+        root.setBottom(footer);
+
+        HeaderController headerController = headerLoader.getController();
+        headerController.displayUser();
+        headerController.displayToday();
 
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);

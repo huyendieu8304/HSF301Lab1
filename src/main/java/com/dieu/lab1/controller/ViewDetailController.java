@@ -71,7 +71,7 @@ public class ViewDetailController {
 //        headerController.displayToday();
 
         UpdateController updateController = loader.getController();
-        updateController.displayAgent(displayedAgent.getId());
+//        updateController.displayAgent(displayedAgent.getId());
 
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
