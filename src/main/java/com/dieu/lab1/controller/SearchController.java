@@ -1,6 +1,7 @@
 package com.dieu.lab1.controller;
 
 import com.dieu.lab1.dto.AgentDto;
+import com.dieu.lab1.entity.Agent;
 import com.dieu.lab1.enumeration.EAgentStatus;
 import com.dieu.lab1.service.IAgentService;
 import com.dieu.lab1.service.impl.AgentService;
@@ -10,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -46,23 +48,23 @@ public class SearchController {
     private Label labelInvalidInputMessage;
 
     @FXML
-    private TableView tblView;
+    private TableView<AgentDto> tblView;
     @FXML
-    private TableColumn tblColOrder;
+    private TableColumn<AgentDto, String> tblColOrder;
     @FXML
-    private TableColumn tblColEmail;
+    private TableColumn<AgentDto, String> tblColEmail;
     @FXML
-    private TableColumn tblColName;
+    private TableColumn<AgentDto, String> tblColName;
     @FXML
-    private TableColumn tblColAddress;
+    private TableColumn<AgentDto, String> tblColAddress;
     @FXML
-    private TableColumn tblColStatus;
+    private TableColumn<AgentDto, String> tblColStatus;
     @FXML
-    private TableColumn tblColRegisterDate;
+    private TableColumn<AgentDto, LocalDate> tblColRegisterDate;
     @FXML
-    private TableColumn tblColAccontBalance;
+    private TableColumn<AgentDto, Double> tblColAccontBalance;
     @FXML
-    private TableColumn tblColViewDetail;
+    private TableColumn<AgentDto, String> tblColViewDetail;
 
 
     private static int currentPage = 1;
@@ -77,15 +79,15 @@ public class SearchController {
         statusOptions.add("All");
         statusOptions.addAll(Arrays.stream(EAgentStatus.values())
                 .map(EAgentStatus::toString)
-                .collect(Collectors.toList()));
+                .toList());
         choiceBoxStatus.getItems().addAll(statusOptions);
         choiceBoxStatus.getSelectionModel().select(0);
 
         //setup data for the table
-//        tblColOrder.setCellValueFactory(cellData -> {
-//            int index = tblView.getItems().indexOf(cellData.getValue());
-//            return new ReadOnlyStringWrapper(String.valueOf((currentPage-1) * pageSize + index + 1));
-//        });
+        tblColOrder.setCellValueFactory(cellData -> {
+            int index = tblView.getItems().indexOf(cellData.getValue());
+            return new ReadOnlyStringWrapper(String.valueOf((currentPage-1) * pageSize + index + 1));
+        });
         tblColEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
         tblColName.setCellValueFactory(new PropertyValueFactory<>("name"));
         tblColAddress.setCellValueFactory(new PropertyValueFactory<>("address"));
@@ -124,12 +126,17 @@ public class SearchController {
         //set status of previous button
         if (currentPage < 2) {
             btnPrevious.setDisable(true);
+        } else {
+            btnPrevious.setDisable(false);
         }
         if (currentPage == noOfPages) {
             btnNext.setDisable(true);
+        } else {
+            btnNext.setDisable(false);
         }
 
-        //update number of page
+        //update labelDisplay in the end
+//        labelDisplay.setText("Hiển thị từ " + (currentPage - 1) * pageSize + " đến " + no );
 
 
     }
@@ -164,8 +171,9 @@ public class SearchController {
                 throw new RuntimeException(e);
             }
         }
-        updateTableData();
+        currentPage = 1;
         updateNoOfPages();
+        updateTableData();
     }
 
     public void previousPage(ActionEvent actionEvent) {
