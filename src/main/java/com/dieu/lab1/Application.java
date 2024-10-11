@@ -8,6 +8,8 @@ import com.dieu.lab1.service.impl.AccountService;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -39,6 +41,18 @@ public class Application extends javafx.application.Application {
         stage.setTitle("Agent management");
         stage.setScene(scene);
         stage.show();
+
+        stage.setOnCloseRequest(event -> {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Thoát ứng dụng");
+            alert.setHeaderText("Xác nhận thoát ứng dụng");
+            alert.setContentText("Bạn chắc chắn muốn thoát ứng dụng?");
+            if (alert.showAndWait().get() == ButtonType.OK){
+                stage.close();
+            } else {
+                event.consume();
+            }
+        });
     }
 
     public static void main(String[] args) {

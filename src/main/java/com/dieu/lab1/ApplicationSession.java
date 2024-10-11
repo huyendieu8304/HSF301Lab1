@@ -13,4 +13,8 @@ public class ApplicationSession {
     public static Object getAttribute(String key) {
         return applicationSession.get(key);
     }
+
+    public static void clearApplicationSesion() {
+        applicationSession.clear();
+    }
 }
