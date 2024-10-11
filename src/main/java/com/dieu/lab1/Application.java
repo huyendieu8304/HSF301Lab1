@@ -16,28 +16,23 @@ import java.io.IOException;
 
 public class Application extends javafx.application.Application {
 
-    public static IAccountService accountService;
-
-    public static IAccountService getAccountService() {
-        return accountService;
-    }
 
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("view-detail.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("search.fxml"));
 //        FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("login.fxml"));
 //        Scene scene = new Scene(fxmlLoader.load());
 
         BorderPane root = fxmlLoader.load();
 
-        FXMLLoader headerLoader = new FXMLLoader(Application.class.getResource("/com/dieu/lab1/components/header.fxml"));
-        Parent header = headerLoader.load();
-
-        FXMLLoader footerLoader = new FXMLLoader(Application.class.getResource("/com/dieu/lab1/components/footer.fxml"));
-        Parent footer = footerLoader.load();
-
-        root.setTop(header);
-        root.setBottom(footer);
+//        FXMLLoader headerLoader = new FXMLLoader(Application.class.getResource("/com/dieu/lab1/components/header.fxml"));
+//        Parent header = headerLoader.load();
+//
+//        FXMLLoader footerLoader = new FXMLLoader(Application.class.getResource("/com/dieu/lab1/components/footer.fxml"));
+//        Parent footer = footerLoader.load();
+//
+//        root.setTop(header);
+//        root.setBottom(footer);
 
         Scene scene = new Scene(root);
 

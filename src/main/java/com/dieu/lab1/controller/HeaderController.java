@@ -1,6 +1,7 @@
 package com.dieu.lab1.controller;
 
 import com.dieu.lab1.ApplicationSession;
+import com.dieu.lab1.dto.AccountDto;
 import com.dieu.lab1.entity.Account;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -19,7 +20,7 @@ public class HeaderController {
     public Button btnLogout;
 
     public void displayUser(){
-        Account account = (Account) ApplicationSession.getAttribute("account");
+        AccountDto account = (AccountDto) ApplicationSession.getAttribute("account");
         labelEmail.setText(account.getEmail());
     }
 

@@ -8,9 +8,16 @@ import com.dieu.lab1.service.impl.AgentService;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -94,9 +101,62 @@ public class SearchController {
         tblColStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
         tblColRegisterDate.setCellValueFactory(new PropertyValueFactory<>("registerDate"));
         tblColAccontBalance.setCellValueFactory(new PropertyValueFactory<>("accountBalance"));
+        tblColViewDetail.setCellFactory(col -> new TableCell<AgentDto, String>() {
+            //create a link in a cell
+            private final Hyperlink link = new Hyperlink("Xem Chi Tiết");
+            //initialize block, run anytime the Hyperlink is create
+            {
+                // Set up the action when the hyperlink is clicked
+                link.setOnAction(event -> {
+                    //get the agent from the table, cause the information displyed in the next scene is same as in the table
+                    //so, I just simply send it, no need to retrive from the db
+                    AgentDto agent = getTableView().getItems().get(getIndex());
+                    try {
+                        // Load the new scene
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/dieu/lab1/view-detail.fxml"));
+                        BorderPane root = loader.load();
 
-        //for more detail column
-        //tblColViewDetail.setCellValueFactory(new PropertyValueFactory<>("viewDetail"));
+//                        FXMLLoader headerLoader = new FXMLLoader(getClass().getResource("/com/dieu/lab1/components/header.fxml"));
+//                        Parent header = headerLoader.load();
+//
+//                        FXMLLoader footerLoader = new FXMLLoader(getClass().getResource("/com/dieu/lab1/components/footer.fxml"));
+//                        Parent footer = footerLoader.load();
+//
+//                        root.setTop(header);
+//                        root.setBottom(footer);
+//
+//                        HeaderController headerController = headerLoader.getController();
+//                        headerController.displayUser();
+//                        headerController.displayToday();
+
+                        // Pass data
+                        ViewDetailController viewDetailController = loader.getController();
+                        viewDetailController.setAgent(agent);
+
+                        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                        Scene scene = new Scene(root);
+                        stage.setScene(scene);
+                        stage.show();
+
+
+
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                });
+            }
+
+            //to make the link displayed
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    setGraphic(link);
+                }
+            }
+        });
 
         //add data to the table
         updateNoOfPages();
@@ -192,9 +252,27 @@ public class SearchController {
     }
 
     //direct user to another page
-    public void createNewAgent(ActionEvent actionEvent) {
+    public void createNewAgent(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/dieu/lab1/create.fxml"));
+        BorderPane root = loader.load();
 
+//        FXMLLoader headerLoader = new FXMLLoader(getClass().getResource("/com/dieu/lab1/components/header.fxml"));
+//        Parent header = headerLoader.load();
+//
+//        FXMLLoader footerLoader = new FXMLLoader(getClass().getResource("/com/dieu/lab1/components/footer.fxml"));
+//        Parent footer = footerLoader.load();
+//
+//        root.setTop(header);
+//        root.setBottom(footer);
+//
+//        HeaderController headerController = headerLoader.getController();
+//        headerController.displayUser();
+//        headerController.displayToday();
 
+        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
 
     }
 
