@@ -13,7 +13,7 @@
 
 <AnchorPane prefHeight="100.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.dieu.lab1.controller.HeaderController">
    <children>
-      <ImageView fitHeight="100.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="imgView" fitHeight="100.0" fitWidth="136.0" pickOnBounds="true" preserveRatio="true" />
       <Label layoutX="387.0" layoutY="33.0" text="Agent Management">
          <font>
             <Font name="System Bold" size="24.0" />

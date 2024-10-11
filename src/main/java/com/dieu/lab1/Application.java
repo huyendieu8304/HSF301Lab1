@@ -10,6 +10,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -39,6 +40,7 @@ public class Application extends javafx.application.Application {
         Scene scene = new Scene(root);
 
         stage.setTitle("Agent management");
+        stage.getIcons().add(new Image(Application.class.getResourceAsStream("/com/dieu/lab1/assets/darwin.jpg")));
         stage.setScene(scene);
         stage.show();
 
