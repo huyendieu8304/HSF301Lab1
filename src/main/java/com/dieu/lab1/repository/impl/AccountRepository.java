@@ -15,44 +15,6 @@ public class AccountRepository extends BaseRepository<Account, Integer> implemen
         super(sessionFactory, Account.class);
     }
 
-//    public void save(Account account) {
-//
-//        Session session = sessionFactory.openSession();
-//        Transaction tx = session.beginTransaction();
-//        try {
-//            session.save(account);
-//            tx.commit();
-//        } catch (Exception e) {
-//            tx.rollback();
-//            e.printStackTrace();
-//        } finally {
-//            session.close();
-//        }
-//    }
-
-//    public Account getAccountById(int id) {
-//        Session session = sessionFactory.openSession();
-//        Transaction tx = session.beginTransaction();
-//        try{
-//            Account account = (Account) session.get(Account.class, id);
-//            tx.commit();
-//            return account;
-//        } catch (Exception e) {
-//            tx.rollback();
-//            e.printStackTrace();
-//        }
-//        return null;
-//    }
-//
-//    @Override
-//    public void updateAccount(Account account) {
-//
-//    }
-//
-//    @Override
-//    public void deleteAccount(int id) {
-//
-//    }
 
     public Account findByEmail(String email) {
         Session session = sessionFactory.openSession();
@@ -66,8 +28,8 @@ public class AccountRepository extends BaseRepository<Account, Integer> implemen
         } catch (Exception e) {
             tx.rollback();
             e.printStackTrace();
+            throw e;
         }
-        return null;
     }
 
 }

@@ -29,7 +29,7 @@ public class CreateController {
     @FXML
     private DatePicker datePickerRegisterDate;
     @FXML
-    private ChoiceBox choiceBoxStatus;
+    private ChoiceBox<String> choiceBoxStatus;
     @FXML
     private Button btnSave;
     @FXML

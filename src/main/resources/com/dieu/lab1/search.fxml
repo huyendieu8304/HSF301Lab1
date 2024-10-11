@@ -4,7 +4,6 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -58,8 +57,8 @@
                   <Font name="System Bold" size="18.0" />
                </font>
             </Label>
-            <Button fx:id="btnCreate" layoutX="775.0" layoutY="60.0" mnemonicParsing="false" text="Tạo mới đại lý" AnchorPane.rightAnchor="134.0" />
-            <TableView layoutX="100.0" layoutY="213.0" prefHeight="302.0" prefWidth="800.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0">
+            <Button fx:id="btnCreate" layoutX="775.0" layoutY="60.0" mnemonicParsing="false" onAction="#createNewAgent" text="Tạo mới đại lý" AnchorPane.rightAnchor="134.0" />
+            <TableView fx:id="tblView" layoutX="100.0" layoutY="213.0" prefHeight="302.0" prefWidth="800.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0">
               <columns>
                 <TableColumn fx:id="tblColOrder" prefWidth="35.0" text="STT" />
                 <TableColumn fx:id="tblColEmail" prefWidth="115.0" text="Email" />
@@ -71,11 +70,13 @@
                   <TableColumn fx:id="tblColViewDetail" prefWidth="66.0" />
               </columns>
             </TableView>
-            <Label layoutX="121.0" layoutY="180.0" text="Hiển thị: " AnchorPane.leftAnchor="121.0" />
-            <Spinner fx:id="spinnerPageSize" editable="true" layoutX="185.0" layoutY="176.0" prefHeight="25.0" prefWidth="59.0" AnchorPane.leftAnchor="185.0" />
+            <Label layoutX="121.0" layoutY="180.0" text="Hiển thị " AnchorPane.leftAnchor="121.0" />
             <Button fx:id="btnPrevious" layoutX="767.0" layoutY="176.0" mnemonicParsing="false" onAction="#previousPage" text="Trước" AnchorPane.rightAnchor="186.0" />
-            <Button fx:id="btnAfter" layoutX="830.0" layoutY="176.0" mnemonicParsing="false" onAction="#nextPage" text="Sau" AnchorPane.rightAnchor="134.0" />
+            <Button fx:id="btnNext" layoutX="830.0" layoutY="176.0" mnemonicParsing="false" onAction="#nextPage" text="Sau" AnchorPane.rightAnchor="134.0" />
             <Label fx:id="labelDisplay" layoutX="121.0" layoutY="525.0" text="Hiển thị từ ... đến ... trên ..." AnchorPane.leftAnchor="121.0" />
+            <TextField fx:id="txtFieldPageSize" layoutX="172.0" layoutY="176.0" onAction="#changePageSize" prefHeight="25.0" prefWidth="37.0" promptText="10" />
+            <Label layoutX="216.0" layoutY="180.0" text="đại lý" />
+            <Label fx:id="labelInvalidInputMessage" layoutX="259.0" layoutY="180.0" text="Label" />
          </children>
       </AnchorPane>
    </center>
