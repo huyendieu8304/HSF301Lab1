@@ -12,4 +12,6 @@ public interface IAgentService {
     List<AgentDto> searchAgent(int pageSize, int pageNo, String status, String email, String name);
 
     int getNoPages (int pageSize, String status, String email, String name);
+
+    AgentDto getAgent(int id);
 }

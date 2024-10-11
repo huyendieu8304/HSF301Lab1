@@ -34,15 +34,7 @@ public class AgentService extends BaseService implements IAgentService {
         List<Agent> agentList = agentRepository.findAgent(pageSize, pageNo, agentStatus, email, name);
 
         return agentList.stream().map(agent -> {
-            AgentDto agentDto = new AgentDto();
-            agentDto.setId(agent.getId());
-            agentDto.setName(agent.getName());
-            agentDto.setEmail(agent.getEmail());
-            agentDto.setStatus(agent.getStatus().toString());
-            agentDto.setAddress(agent.getAddress());
-            agentDto.setRegisterDate(agent.getRegisterDate());
-            agentDto.setAccountBalance(agent.getAccountBalance());
-            return agentDto;
+            return convertToAgentDto(agent);
         }).toList();
     }
 
@@ -56,5 +48,24 @@ public class AgentService extends BaseService implements IAgentService {
         Long numberOfAgents = agentRepository.countAgent(agentStatus, email, name);
         int noOfPages = (int) Math.ceil((double)numberOfAgents / pageSize);
         return noOfPages;
+    }
+
+    @Override
+    public AgentDto getAgent(int id) {
+        Agent agent =  agentRepository.findById(id);
+        AgentDto agentDto = new AgentDto();
+        return convertToAgentDto(agent);
+    }
+
+    public AgentDto convertToAgentDto(Agent agent) {
+        AgentDto agentDto = new AgentDto();
+        agentDto.setId(agent.getId());
+        agentDto.setName(agent.getName());
+        agentDto.setEmail(agent.getEmail());
+        agentDto.setStatus(agent.getStatus().toString());
+        agentDto.setAddress(agent.getAddress());
+        agentDto.setRegisterDate(agent.getRegisterDate());
+        agentDto.setAccountBalance(agent.getAccountBalance());
+        return agentDto;
     }
 }

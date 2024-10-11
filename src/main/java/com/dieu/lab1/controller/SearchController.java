@@ -81,7 +81,7 @@ public class SearchController {
                 .map(EAgentStatus::toString)
                 .toList());
         choiceBoxStatus.getItems().addAll(statusOptions);
-        choiceBoxStatus.getSelectionModel().select(0);
+        choiceBoxStatus.getSelectionModel().select(1);
 
         //setup data for the table
         tblColOrder.setCellValueFactory(cellData -> {
@@ -154,6 +154,7 @@ public class SearchController {
 
     public void searchAgent(ActionEvent actionEvent) {
         currentPage = 1;
+        updateNoOfPages();
         updateTableData();
     }
 
@@ -192,6 +193,8 @@ public class SearchController {
 
     //direct user to another page
     public void createNewAgent(ActionEvent actionEvent) {
+
+
 
     }
 

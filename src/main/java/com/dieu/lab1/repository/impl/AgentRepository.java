@@ -39,7 +39,7 @@ public class AgentRepository extends BaseRepository<Agent, Integer> implements I
                 hql.append(" AND LOWER(name) LIKE :name");
                 params.put("name", "%" + name.toLowerCase() + "%");
             }
-
+            hql.append(" ORDER BY registerDate ASC, name ASC");
             TypedQuery<Agent> query = session.createQuery(hql.toString(), Agent.class);
             for (Map.Entry<String, Object> entry : params.entrySet()) {
                 query.setParameter(entry.getKey(), entry.getValue());
