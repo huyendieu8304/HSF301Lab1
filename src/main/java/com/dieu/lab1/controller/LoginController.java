@@ -1,5 +1,7 @@
 package com.dieu.lab1.controller;
 
+import com.dieu.lab1.Application;
+import com.dieu.lab1.ApplicationSession;
 import com.dieu.lab1.dto.AccountDto;
 import com.dieu.lab1.entity.Account;
 import com.dieu.lab1.service.IAccountService;
@@ -40,6 +42,7 @@ public class LoginController {
         AccountDto account = validateInputAccount(actionEvent);
         //account is right
         if (account != null && accountService.verifyAccount(account)) {
+            ApplicationSession.addAttribute("account", account);
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/dieu/lab1/search.fxml"));
             BorderPane root = loader.load();
 
@@ -53,7 +56,7 @@ public class LoginController {
             root.setBottom(footer);
 
             HeaderController headerController = headerLoader.getController();
-            headerController.displayUser(account.getEmail());
+            headerController.displayUser();
             headerController.displayToday();
 
             Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
