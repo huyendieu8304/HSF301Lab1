@@ -14,4 +14,9 @@ public interface IAgentService {
     int getNoPages (int pageSize, String status, String email, String name);
 
     AgentDto getAgent(int id);
+
+    boolean isAgentNameExist (String name);
+    boolean isAgentEmailExist (String email);
+
+    boolean updateAgent(Agent agent);
 }

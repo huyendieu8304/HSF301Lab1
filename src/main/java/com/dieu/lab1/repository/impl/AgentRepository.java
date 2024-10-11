@@ -90,5 +90,41 @@ public class AgentRepository extends BaseRepository<Agent, Integer> implements I
             throw e;
         }
     }
+
+    @Override
+    public boolean isAgentNameExist(String name) {
+        Session session = sessionFactory.openSession();
+        Transaction tx = session.beginTransaction();
+        try{
+            String hql = "SELECT COUNT(*) FROM Agent WHERE name = :name";
+            Long count = (Long) session.createQuery(hql)
+                    .setParameter("name", name)
+                    .uniqueResult();
+            tx.commit();
+            return count > 0;
+        }catch (Exception e){
+            tx.rollback();
+            e.printStackTrace();
+            throw e;
+        }
+    }
+
+    @Override
+    public boolean isAgentEmailExist(String email) {
+        Session session = sessionFactory.openSession();
+        Transaction tx = session.beginTransaction();
+        try{
+            String hql = "SELECT COUNT(*) FROM Agent WHERE email = :email";
+            Long count = (Long) session.createQuery(hql)
+                    .setParameter("email", email)
+                    .uniqueResult();
+            tx.commit();
+            return count > 0;
+        }catch (Exception e){
+            tx.rollback();
+            e.printStackTrace();
+            throw e;
+        }
+    }
 }
 

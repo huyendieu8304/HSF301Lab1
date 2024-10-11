@@ -57,6 +57,21 @@ public class AgentService extends BaseService implements IAgentService {
         return convertToAgentDto(agent);
     }
 
+    @Override
+    public boolean isAgentNameExist(String name) {
+        return agentRepository.isAgentNameExist(name);
+    }
+
+    @Override
+    public boolean isAgentEmailExist(String email) {
+        return agentRepository.isAgentEmailExist(email);
+    }
+
+    @Override
+    public boolean updateAgent(Agent agent) {
+        return agentRepository.update(agent);
+    }
+
     public AgentDto convertToAgentDto(Agent agent) {
         AgentDto agentDto = new AgentDto();
         agentDto.setId(agent.getId());

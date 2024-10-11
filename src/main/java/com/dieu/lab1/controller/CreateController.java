@@ -19,13 +19,6 @@ import java.util.Arrays;
 
 public class CreateController {
 
-
-    private IAgentService agentService;
-
-    public CreateController() {
-        agentService = new AgentService();
-    }
-
     @FXML
     private TextField txtFieldName;
     @FXML
@@ -45,6 +38,11 @@ public class CreateController {
     @FXML
     private Label labelMessage;
 
+    private IAgentService agentService;
+
+    public CreateController() {
+        agentService = new AgentService();
+    }
 
     public void initialize() {
 
@@ -59,10 +57,10 @@ public class CreateController {
     public void createAgent(ActionEvent actionEvent) {
         if (getInput(actionEvent) != null){
             if (agentService.createAgent(getInput(actionEvent))){
-                labelMessage.setText("Agent created");
+                labelMessage.setText("Thông tin đại lý đã được tạo.");
 
             } else {
-                labelMessage.setText("Agent creation failed");
+                labelMessage.setText("Tạo thông tin đại lý thất bại, mời thử lại sau!");
             }
         }
     }
@@ -75,7 +73,7 @@ public class CreateController {
                 || txtFieldAddress.getText().trim().isEmpty()
                 || txtFieldBalance.getText().trim().isEmpty()
                 || datePickerRegisterDate.getValue() == null) {
-            labelMessage.setText("Hãy điền đủ thông tin");
+            labelMessage.setText("Hãy điền đủ thông tin.");
             return null;
         }
 
@@ -83,14 +81,22 @@ public class CreateController {
 
         //validate agent's name
         if (!txtFieldName.getText().matches("[a-zA-Z\\s]+")){
-            labelMessage.setText("Tên đại lí chỉ chứa chữ cái và khoảng trắng");
+            labelMessage.setText("Tên đại lí chỉ chứa chữ cái và khoảng trắng.");
+            return null;
+        }
+        if (agentService.isAgentNameExist(txtFieldName.getText())){
+            labelMessage.setText("Tên đại lí đã tồn tại.");
             return null;
         }
         agent.setName(txtFieldName.getText());
 
         //validate email
         if (!txtFieldEmail.getText().matches("^[a-zA-Z0-9.]+@[a-zA-Z0-9.]+\\.([a-zA-Z]{2,}$)+")){
-            labelMessage.setText("Địa chỉ email không hợp lệ");
+            labelMessage.setText("Địa chỉ email không hợp lệ.");
+            return null;
+        }
+        if (agentService.isAgentEmailExist(txtFieldEmail.getText())){
+            labelMessage.setText("Địa chỉ email đại lí đã tồn tại.");
             return null;
         }
         agent.setEmail(txtFieldEmail.getText());
@@ -99,12 +105,12 @@ public class CreateController {
         try {
             Double balance = Double.parseDouble(txtFieldBalance.getText());
             if (balance < 0){
-                labelMessage.setText("Số dư không được âm");
+                labelMessage.setText("Số dư không được âm.");
                 return null;
             }
             agent.setAccountBalance(balance);
         }catch (NumberFormatException e){
-            labelMessage.setText("Số dư phải là số dương");
+            labelMessage.setText("Số dư phải là số dương.");
             e.printStackTrace();
             return null;
         }

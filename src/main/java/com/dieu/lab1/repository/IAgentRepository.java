@@ -8,4 +8,6 @@ import java.util.List;
 public interface IAgentRepository extends ICrudRepository<Agent, Integer> {
     List<Agent> findAgent(int pageSize, int pageNo, EAgentStatus status, String email, String name);
     public Long countAgent(EAgentStatus status, String email, String name);
+    boolean isAgentNameExist(String name);
+    boolean isAgentEmailExist(String email);
 }

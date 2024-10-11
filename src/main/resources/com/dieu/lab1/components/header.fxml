@@ -8,6 +8,7 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="100.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.dieu.lab1.controller.HeaderController">
@@ -43,5 +44,6 @@
          </children>
       </GridPane>
       <Button fx:id="btnLogout" layoutX="918.0" layoutY="38.0" mnemonicParsing="false" text="Đăng xuất" />
+      <Line endX="806.0" endY="24.0" layoutX="194.0" layoutY="76.0" startX="-194.0" startY="24.0" />
    </children>
 </AnchorPane>

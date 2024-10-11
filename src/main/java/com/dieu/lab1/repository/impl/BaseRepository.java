@@ -47,16 +47,18 @@ public abstract class BaseRepository<T, K> implements ICrudRepository<T, K> {
     }
 
     @Override
-    public void update(T entity){
+    public boolean update(T entity){
         Session session = sessionFactory.openSession();
         Transaction tx = session.beginTransaction();
         try {
             session.update(entity);
             tx.commit();
+            return true;
         } catch (Exception e){
             tx.rollback();
             e.printStackTrace();
         }
+        return false;
     }
 
     @Override

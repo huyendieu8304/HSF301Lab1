@@ -29,7 +29,7 @@ public class SearchController {
     private IAgentService agentService;
 
     public SearchController() {
-        agentService = new AgentService();
+        this.agentService = new AgentService();
     }
 
     @FXML
@@ -131,7 +131,7 @@ public class SearchController {
 
                         // Pass data
                         ViewDetailController viewDetailController = loader.getController();
-                        viewDetailController.setAgent(agent);
+                        viewDetailController.displayAgent(agent);
 
                         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                         Scene scene = new Scene(root);
@@ -209,7 +209,6 @@ public class SearchController {
             status = null;
         }
         noOfPages = agentService.getNoPages(pageSize, status, email, name);
-        System.out.println(noOfPages);
     }
 
     public void searchAgent(ActionEvent actionEvent) {

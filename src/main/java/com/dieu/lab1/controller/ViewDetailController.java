@@ -1,6 +1,7 @@
 package com.dieu.lab1.controller;
 
 import com.dieu.lab1.dto.AgentDto;
+import com.dieu.lab1.entity.Agent;
 import com.dieu.lab1.service.IAgentService;
 import com.dieu.lab1.service.impl.AgentService;
 import javafx.event.ActionEvent;
@@ -37,20 +38,10 @@ public class ViewDetailController {
     @FXML
     private Button btnUpdate;
 
+    private static AgentDto displayedAgent;
 
-//    private final IAgentService agentService;
-
-//
-//    public ViewDetailController(IAgentService agentService) {
-//        this.agentService = new AgentService();
-//    }
-//
-//    public void returnSearch(ActionEvent actionEvent) {
-//        System.out.println("return");
-//    }
-
-
-    public void setAgent(AgentDto agentDto) {
+    public void displayAgent(AgentDto agentDto) {
+        displayedAgent = agentDto;
         txtFieldName.setText(agentDto.getName());
         txtFieldEmail.setText(agentDto.getEmail());
         txtFieldAddress.setText(agentDto.getAddress());
@@ -79,6 +70,9 @@ public class ViewDetailController {
 //        headerController.displayUser();
 //        headerController.displayToday();
 
+        UpdateController updateController = loader.getController();
+        updateController.displayAgent(displayedAgent.getId());
+
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);
@@ -104,6 +98,7 @@ public class ViewDetailController {
 //        HeaderController headerController = headerLoader.getController();
 //        headerController.displayUser();
 //        headerController.displayToday();
+
 
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
