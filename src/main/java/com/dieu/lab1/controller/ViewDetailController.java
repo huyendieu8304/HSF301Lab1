@@ -39,10 +39,7 @@ public class ViewDetailController {
 
 
 //    private final IAgentService agentService;
-//
-//    public ViewDetailController() {
-//        // Nếu cần thiết, có thể thêm logic khởi tạo tại đây
-//    }
+
 //
 //    public ViewDetailController(IAgentService agentService) {
 //        this.agentService = new AgentService();
@@ -64,6 +61,7 @@ public class ViewDetailController {
         txtFieldRegisterDate.setText(agentDto.getRegisterDate().format(formatter));
     }
 
+    //switch to update scene
     public void updateAgent(ActionEvent actionEvent)  throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/dieu/lab1/update.fxml"));
         BorderPane root = loader.load();

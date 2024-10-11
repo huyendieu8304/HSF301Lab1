@@ -1,6 +1,9 @@
 package com.dieu.lab1.controller;
 
+import com.dieu.lab1.dto.AgentDto;
+import com.dieu.lab1.enumeration.EAgentStatus;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -13,19 +16,53 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 public class UpdateController {
-    public TextField txtFieldName;
-    public TextField txtFieldEmail;
-    public TextField txtFieldAddress;
-    public TextField txtFieldBalance;
-    public DatePicker datePickerRegisterDate;
-    public ChoiceBox choiceBoxStatus;
-    public Button btnSave;
-    public Button btnReturn;
+    @FXML
+    private TextField txtFieldName;
+    @FXML
+    private TextField txtFieldEmail;
+    @FXML
+    private TextField txtFieldAddress;
+    @FXML
+    private TextField txtFieldBalance;
+    @FXML
+    private DatePicker datePickerRegisterDate;
+    @FXML
+    private ChoiceBox choiceBoxStatus;
+    @FXML
+    private Button btnSave;
+    @FXML
+    private Button btnReturn;
 
+    public void initialize(AgentDto agent) {
+
+        txtFieldName.setText(agent.getName());
+        txtFieldEmail.setText(agent.getEmail());
+        txtFieldAddress.setText(agent.getAddress());
+
+        //initialize value for choiceBox
+        String[] agentStatus = Arrays.stream(EAgentStatus.values())
+                .map(EAgentStatus::toString)
+                .toArray(String[]::new);
+        choiceBoxStatus.getItems().addAll(agentStatus);
+        //set the choice same with the current status
+        String agentCurrentStatus = agent.getStatus();
+        int defaultIndex = Arrays.asList(agentStatus).indexOf(agentCurrentStatus);
+        if (defaultIndex >= 0) {
+            choiceBoxStatus.getSelectionModel().select(defaultIndex);
+        } else {
+            //the status doesn't match any option
+            //can't happen but add for in case
+            choiceBoxStatus.getSelectionModel().select(0);
+        }
+        txtFieldBalance.setText(agent.getAccountBalance().toString());
+        datePickerRegisterDate.setValue(agent.getRegisterDate());
+    }
 
     public void updateAgent(ActionEvent actionEvent) {
+
     }
 
     public void returnSearch(ActionEvent actionEvent) throws IOException {

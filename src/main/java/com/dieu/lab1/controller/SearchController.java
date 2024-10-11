@@ -180,7 +180,7 @@ public class SearchController {
         if (!agentDtoList.isEmpty()) {
             tblView.getItems().addAll(agentDtoList);
         } else {
-            tblView.setPlaceholder(new Label("Sorry, we can't find any agent matching your criteria"));
+            tblView.setPlaceholder(new Label("Xin lỗi, không tìm thấy đại lí nào phù hợp."));
         }
 
         //set status of previous button
@@ -224,11 +224,11 @@ public class SearchController {
             try {
                 pageSize = Integer.parseInt(txtFieldPageSize.getText());
                 if (pageSize <= 0 || pageSize > 100) {
-                    labelInvalidInputMessage.setText("the page size must be between 1 and 100");
+                    labelInvalidInputMessage.setText("Số lượng hàng từ 0 - 100");
                     return;
                 }
             } catch (Exception e) {
-                labelInvalidInputMessage.setText("Please enter a valid page size");
+                labelInvalidInputMessage.setText("Hãy nhập số nguyên dương");
                 throw new RuntimeException(e);
             }
         }

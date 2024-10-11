@@ -72,12 +72,12 @@ public class LoginController {
         String password = txtFieldPassword.getText();
 
         if (email.isEmpty() || password.isEmpty()) {
-            labelError.setText("Please enter email address and password");
+            labelError.setText("Hãy nhập email và password");
             return null;
         }
 
         if (!email.matches("^[a-zA-Z0-9.]+@[a-zA-Z0-9.]+\\.([a-zA-Z]{2,}$)+")) {
-            labelError.setText("Please enter a valid email address");
+            labelError.setText("Địa chỉ email không hợp lệ");
             return null;
         }
 

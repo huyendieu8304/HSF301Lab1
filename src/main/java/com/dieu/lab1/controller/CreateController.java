@@ -65,7 +65,6 @@ public class CreateController {
                 labelMessage.setText("Agent creation failed");
             }
         }
-
     }
 
     public Agent getInput (ActionEvent actionEvent) {
@@ -76,7 +75,7 @@ public class CreateController {
                 || txtFieldAddress.getText().trim().isEmpty()
                 || txtFieldBalance.getText().trim().isEmpty()
                 || datePickerRegisterDate.getValue() == null) {
-            labelMessage.setText("Please fill all the fields");
+            labelMessage.setText("Hãy điền đủ thông tin");
             return null;
         }
 
@@ -84,14 +83,14 @@ public class CreateController {
 
         //validate agent's name
         if (!txtFieldName.getText().matches("[a-zA-Z\\s]+")){
-            labelMessage.setText("Agent name must contain only letters and spaces");
+            labelMessage.setText("Tên đại lí chỉ chứa chữ cái và khoảng trắng");
             return null;
         }
         agent.setName(txtFieldName.getText());
 
         //validate email
         if (!txtFieldEmail.getText().matches("^[a-zA-Z0-9.]+@[a-zA-Z0-9.]+\\.([a-zA-Z]{2,}$)+")){
-            labelMessage.setText("Email is invalid");
+            labelMessage.setText("Địa chỉ email không hợp lệ");
             return null;
         }
         agent.setEmail(txtFieldEmail.getText());
@@ -100,12 +99,12 @@ public class CreateController {
         try {
             Double balance = Double.parseDouble(txtFieldBalance.getText());
             if (balance < 0){
-                labelMessage.setText("Balance cannot be negative");
+                labelMessage.setText("Số dư không được âm");
                 return null;
             }
             agent.setAccountBalance(balance);
         }catch (NumberFormatException e){
-            labelMessage.setText("Balance cannot contain alphabet characters");
+            labelMessage.setText("Số dư phải là số dương");
             e.printStackTrace();
             return null;
         }
@@ -115,10 +114,6 @@ public class CreateController {
         agent.setRegisterDate(datePickerRegisterDate.getValue());
 
         return agent;
-    }
-
-    public void setAgent(AgentDto agent) {
-        System.out.println("setAgent");
     }
 
     public void returnSearch(ActionEvent actionEvent) throws IOException {
