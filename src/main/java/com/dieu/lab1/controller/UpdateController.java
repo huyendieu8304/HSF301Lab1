@@ -22,6 +22,8 @@ import java.util.Optional;
 public class UpdateController {
 
     @FXML
+    private Label labelTitle;
+    @FXML
     private TextField txtFieldName;
     @FXML
     private TextField txtFieldEmail;
@@ -36,7 +38,9 @@ public class UpdateController {
     @FXML
     private Label labelMessage;
     @FXML
-    private Button btnSave;
+    private Label labelGuide;
+    @FXML
+    public Button btnUpdate;
     @FXML
     private Button btnReturn;
 
@@ -47,6 +51,35 @@ public class UpdateController {
     }
 
     private static int agentId;
+    //false: view mode
+    //true: update mode
+    private static boolean btnUpdateMode = false;
+
+    public void initialize() {
+        //add listener
+        btnUpdate.setOnAction(event -> {
+            if (!btnUpdateMode) {
+                //switch to update mode
+                btnUpdateMode = true;
+                labelTitle.setText("Cập nhật thông tin đại lí");
+                //hide guide mesage
+                labelGuide.setVisible(false);
+                //enable user to edit information
+                txtFieldName.setEditable(true);
+                txtFieldEmail.setEditable(true);
+                txtFieldAddress.setEditable(true);
+                txtFieldBalance.setEditable(true);
+                datePickerRegisterDate.setDisable(false);
+                choiceBoxStatus.setDisable(false);
+
+                btnUpdate.setText("Cập nhật");
+            } else {
+                updateAgent(event);
+            }
+
+        });
+
+    }
 
     public void displayAgent(AgentDto agentDto) {
         agentId = agentDto.getId();
