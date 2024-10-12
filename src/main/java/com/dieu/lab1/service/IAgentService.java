@@ -15,8 +15,8 @@ public interface IAgentService {
 
     AgentDto getAgent(int id);
 
-    boolean isAgentNameExist (String name);
-    boolean isAgentEmailExist (String email);
+    boolean isAgentNameExist (String name, int agentId);
+    boolean isAgentEmailExist (String email, int agentId);
 
     boolean updateAgent(Agent agent);
 }

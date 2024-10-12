@@ -17,6 +17,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Optional;
 
 public class UpdateController {
 
@@ -75,11 +76,21 @@ public class UpdateController {
 
     public void updateAgent(ActionEvent actionEvent) {
         if (getInput(actionEvent) != null){
-            if (agentService.updateAgent(getInput(actionEvent))){
-                labelMessage.setText("Thông tin đại lí đã được cập nhật.");
+            //confirm update
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Xác minh cập nhật");
+            alert.setHeaderText("Xác nhận cập nhật thông tin đại lí");
+            alert.setContentText("Bạn có chắc muốn cập nhật thông tin đại lí này không?");
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK) {
+                if (agentService.updateAgent(getInput(actionEvent))){
+                    labelMessage.setText("Thông tin đại lí đã được cập nhật.");
 
+                } else {
+                    labelMessage.setText("Cập nhật thông tin đại lí thất bại.");
+                }
             } else {
-                labelMessage.setText("Cập nhật thông tin đại lí thất bại.");
+                labelMessage.setText("Đã hủy cập nhật thông tin đại lí");
             }
         }
     }
@@ -103,10 +114,10 @@ public class UpdateController {
             labelMessage.setText("Tên đại lí chỉ chứa chữ cái và khoảng trắng.");
             return null;
         }
-//        if (agentService.isAgentNameExist(txtFieldName.getText())){
-//            labelMessage.setText("Tên đại lí đã tồn tại.");
-//            return null;
-//        }
+        if (agentService.isAgentNameExist(txtFieldName.getText(), agentId)){
+            labelMessage.setText("Tên đại lí đã tồn tại.");
+            return null;
+        }
         agent.setName(txtFieldName.getText());
 
         //validate email
@@ -114,10 +125,10 @@ public class UpdateController {
             labelMessage.setText("Địa chỉ email không hợp lệ.");
             return null;
         }
-//        if (agentService.isAgentEmailExist(txtFieldEmail.getText())){
-//            labelMessage.setText("Địa chỉ email đại lí đã tồn tại.");
-//            return null;
-//        }
+        if (agentService.isAgentEmailExist(txtFieldEmail.getText(), agentId)){
+            labelMessage.setText("Địa chỉ email đại lí đã tồn tại.");
+            return null;
+        }
         agent.setEmail(txtFieldEmail.getText());
 
         //validate accont's balance

@@ -39,7 +39,7 @@ public class AgentRepository extends BaseRepository<Agent, Integer> implements I
                 hql.append(" AND LOWER(name) LIKE :name");
                 params.put("name", "%" + name.toLowerCase() + "%");
             }
-            hql.append(" ORDER BY registerDate ASC, name ASC");
+            hql.append(" ORDER BY registerDate ASC, LOWER(name) ASC");
             TypedQuery<Agent> query = session.createQuery(hql.toString(), Agent.class);
             for (Map.Entry<String, Object> entry : params.entrySet()) {
                 query.setParameter(entry.getKey(), entry.getValue());
@@ -92,16 +92,16 @@ public class AgentRepository extends BaseRepository<Agent, Integer> implements I
     }
 
     @Override
-    public boolean isAgentNameExist(String name) {
+    public Agent findAgentByName(String name) {
         Session session = sessionFactory.openSession();
         Transaction tx = session.beginTransaction();
         try{
-            String hql = "SELECT COUNT(*) FROM Agent WHERE name = :name";
-            Long count = (Long) session.createQuery(hql)
-                    .setParameter("name", name)
-                    .uniqueResult();
+            String hql = "FROM Agent WHERE name = :name";
+            TypedQuery<Agent> query = session.createQuery(hql, Agent.class);
+            query.setParameter("name", name);
+            List<Agent> agents = query.getResultList();
             tx.commit();
-            return count > 0;
+            return agents.isEmpty() ? null : agents.get(0);
         }catch (Exception e){
             tx.rollback();
             e.printStackTrace();
@@ -110,16 +110,16 @@ public class AgentRepository extends BaseRepository<Agent, Integer> implements I
     }
 
     @Override
-    public boolean isAgentEmailExist(String email) {
+    public Agent findAgentByEmail(String email) {
         Session session = sessionFactory.openSession();
         Transaction tx = session.beginTransaction();
         try{
-            String hql = "SELECT COUNT(*) FROM Agent WHERE email = :email";
-            Long count = (Long) session.createQuery(hql)
-                    .setParameter("email", email)
-                    .uniqueResult();
+            String hql = "FROM Agent WHERE email = :email";
+            TypedQuery<Agent> query = session.createQuery(hql, Agent.class);
+            query.setParameter("email", email);
+            List<Agent> agents = query.getResultList();
             tx.commit();
-            return count > 0;
+            return agents.isEmpty() ? null : agents.get(0);
         }catch (Exception e){
             tx.rollback();
             e.printStackTrace();

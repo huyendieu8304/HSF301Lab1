@@ -231,6 +231,7 @@ public class SearchController {
                 throw new RuntimeException(e);
             }
         }
+        labelInvalidInputMessage.setText(""); //clear old message
         currentPage = 1;
         updateNoOfPages();
         updateTableData();

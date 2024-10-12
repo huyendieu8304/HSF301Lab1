@@ -17,6 +17,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Optional;
 
 public class CreateController {
 
@@ -57,11 +58,21 @@ public class CreateController {
 
     public void createAgent(ActionEvent actionEvent) {
         if (getInput(actionEvent) != null){
-            if (agentService.createAgent(getInput(actionEvent))){
-                labelMessage.setText("Thông tin đại lý đã được tạo.");
+            //confirm create
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Xác minh tạo mới");
+            alert.setHeaderText("Xác nhận tạo mới thông tin đại lí");
+            alert.setContentText("Bạn có chắc muốn tạo mới thông tin đại lí này không?");
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK) {
+                if (agentService.createAgent(getInput(actionEvent))){
+                    labelMessage.setText("Thông tin đại lý đã được tạo.");
 
+                } else {
+                    labelMessage.setText("Tạo thông tin đại lý thất bại, mời thử lại sau!");
+                }
             } else {
-                labelMessage.setText("Tạo thông tin đại lý thất bại, mời thử lại sau!");
+                labelMessage.setText("Đã hủy tạo mới thông tin đại lí");
             }
         }
     }
@@ -85,7 +96,7 @@ public class CreateController {
             labelMessage.setText("Tên đại lí chỉ chứa chữ cái và khoảng trắng.");
             return null;
         }
-        if (agentService.isAgentNameExist(txtFieldName.getText())){
+        if (agentService.isAgentNameExist(txtFieldName.getText(), -1)){
             labelMessage.setText("Tên đại lí đã tồn tại.");
             return null;
         }
@@ -96,7 +107,7 @@ public class CreateController {
             labelMessage.setText("Địa chỉ email không hợp lệ.");
             return null;
         }
-        if (agentService.isAgentEmailExist(txtFieldEmail.getText())){
+        if (agentService.isAgentEmailExist(txtFieldEmail.getText(), -1)){
             labelMessage.setText("Địa chỉ email đại lí đã tồn tại.");
             return null;
         }

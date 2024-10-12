@@ -58,13 +58,15 @@ public class AgentService extends BaseService implements IAgentService {
     }
 
     @Override
-    public boolean isAgentNameExist(String name) {
-        return agentRepository.isAgentNameExist(name);
+    public boolean isAgentNameExist(String name, int agentId) {
+        Agent agent = agentRepository.findAgentByName(name);
+        return agent != null && !agent.getId().equals(agentId);
     }
 
     @Override
-    public boolean isAgentEmailExist(String email) {
-        return agentRepository.isAgentEmailExist(email);
+    public boolean isAgentEmailExist(String email,  int agentId) {
+        Agent agent = agentRepository.findAgentByName(email);
+        return agent != null && !agent.getId().equals(agentId);
     }
 
     @Override
