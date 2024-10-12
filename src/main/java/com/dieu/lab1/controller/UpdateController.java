@@ -118,7 +118,7 @@ public class UpdateController {
             labelMessage.setText("Tên đại lí đã tồn tại.");
             return null;
         }
-        agent.setName(txtFieldName.getText());
+        agent.setName(txtFieldName.getText().trim().replaceAll("\\s+", " "));
 
         //validate email
         if (!txtFieldEmail.getText().matches("^[a-zA-Z0-9.]+@[a-zA-Z0-9.]+\\.([a-zA-Z]{2,}$)+")){
@@ -129,7 +129,7 @@ public class UpdateController {
             labelMessage.setText("Địa chỉ email đại lí đã tồn tại.");
             return null;
         }
-        agent.setEmail(txtFieldEmail.getText());
+        agent.setEmail(txtFieldEmail.getText().trim());
 
         //validate accont's balance
         try {
@@ -145,7 +145,7 @@ public class UpdateController {
             return null;
         }
 
-        agent.setAddress(txtFieldAddress.getText());
+        agent.setAddress(txtFieldAddress.getText().trim().replaceAll("\\s+", " "));
         agent.setStatus(EAgentStatus.valueOf(choiceBoxStatus.getSelectionModel().getSelectedItem().toString()));
         agent.setRegisterDate(datePickerRegisterDate.getValue());
         agent.setId(agentId);
