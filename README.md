@@ -1,2 +1,2 @@
 # HSF301Lab1
-This is a JavaFx project i made for a course in school.
+This is a JavaFx project i made for a course in school, using Hibernate to manipulate data.
